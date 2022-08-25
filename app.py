@@ -139,7 +139,7 @@ Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
 Y_ = scaler.inverse_transform(Y_)
 
 df_future = pd.DataFrame(columns=['Date','Forecast'])
-df_future['Date'] = pd.date_range(start=start_date, periods=n_forecast)
+df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
 df_future['Forecast'] = Y_.flatten()
 st.sidebar.subheader("Forecast for next 1 month from" , start_date)
 st.sidebar.write(df_future)
