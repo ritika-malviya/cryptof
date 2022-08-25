@@ -6,9 +6,13 @@ import yfinance as yf
 import datetime
 from datetime import date, timedelta
 import plotly.graph_objects as go
+import plotly.express as px
 
 from tensorflow.keras.models import load_model
 loaded_model = load_model('lstm.h5')
+
+from PIL import Image
+image = Image.open('crypto.jpg')
 
 today = date.today()
 d1 = today.strftime("%Y-%m-%d")
@@ -16,7 +20,8 @@ end_date = d1
 d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
-st.title("Crpytocurrencies Prediction")
+st.sidebar.title("Crpytocurrencies Prediction")
+st.sidebar.image(image)
 st.subheader("What is Cryptocurrency???")
 st.write("""
 You must have heard or invested in any cryptocurrency once in your life. 
@@ -43,7 +48,7 @@ st.subheader("Raw Data")
 st.write(data.tail())
 
 #Describing data
-st.subheader("Data is from 2017 to 2022")
+st.subheader("Data Description of 5 years :")
 st.write(data.describe())
 
 #visualization
@@ -103,17 +108,18 @@ testPredict = np.empty_like(data1)
 testPredict[:,:] = np.nan
 testPredict[len(train_predict) + (look_back * 2)+1:len(data1)-1, :] = test_predict
 
-# plot baseline and predictions
-fig2 = plt.figure(figsize = (12,6))
-plt.plot(scaler.inverse_transform(data1))
-plt.plot(trainPredict)
-plt.plot(testPredict)
-plt.legend()
-st.pyplot(fig2)
+# Comparision of original stock close price and predicted close price
+plotdf = pd.DataFrame({'date': data['Date'],
+                       'original': data['Close'],
+                      'train_predicted': trainPredict.reshape(1,-1)[0].tolist(),
+                      'test_predicted': testPredict.reshape(1,-1)[0].tolist()})
+fig = px.line(plotdf,x=plotdf['date'], y=[plotdf['original'],plotdf['train_predicted'],
+                                          plotdf['test_predicted']],
+              labels={'value':'Stock price','date': 'Date'})
+fig.update_layout(title_text='Comparision between original close price vs predicted close price',
+                  plot_bgcolor='white', font_size=15, font_color='black', legend_title_text='Close Price')
+fig.show()
 
-st.write("Green indicates the Predicted Data")
-st.write("Blue indicates the Complete Data")
-st.write("Orange indicates the Train Data")
 
 loaded_modelf = load_model('lstmf.h5')
 #forecast for next 1 month
@@ -141,6 +147,5 @@ Y_ = scaler.inverse_transform(Y_)
 df_future = pd.DataFrame(columns=['Date','Forecast'])
 df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
 df_future['Forecast'] = Y_.flatten()
-st.sidebar.subheader("Forecast for next 1 month from" , start_date)
-st.sidebar.write(df_future)
-
+st.subheader("Forecast for next 1 month from" , start_date)
+st.write(df_future)
