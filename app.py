@@ -20,7 +20,7 @@ end_date = d1
 d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
-st.sidebar.title("Crpytocurrencies Prediction")
+st.sidebar.title("Cryptocurrencies Prediction")
 st.sidebar.image(image)
 st.subheader("What is Cryptocurrency???")
 st.write("""
@@ -29,6 +29,8 @@ It is a digital medium of exchange that is encrypted and decentralized.
 Many people use cryptocurrencies as a form of investing because it gives great returns even in a short period. 
 Bitcoin, Ethereum, Dogecoin & many more coins are among the popular cryptocurrencies today.
 """)
+coins = Image.open("coins.jpg")
+st.image(coins)
 selected_stock= st.sidebar.selectbox("Select the crpytocurrency for prediction",
                                      ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
                                       "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
@@ -108,17 +110,15 @@ testPredict = np.empty_like(data1)
 testPredict[:,:] = np.nan
 testPredict[len(train_predict) + (look_back * 2)+1:len(data1)-1, :] = test_predict
 
-# Comparision of original stock close price and predicted close price
-plotdf = pd.DataFrame({'date': data['Date'],
-                       'original': data['Close'],
-                      'train_predicted': trainPredict.reshape(1,-1)[0].tolist(),
-                      'test_predicted': testPredict.reshape(1,-1)[0].tolist()})
-fig = px.line(plotdf,x=plotdf['date'], y=[plotdf['original'],plotdf['train_predicted'],
-                                          plotdf['test_predicted']],
-              labels={'value':'Stock price','date': 'Date'})
-fig.update_layout(title_text='Comparision between original close price vs predicted close price',
-                  plot_bgcolor='white', font_size=15, font_color='black', legend_title_text='Close Price')
-fig.show()
+# plot baseline and predictions
+plt.plot(scaler.inverse_transform(data1))
+plt.plot(trainPredict)
+plt.plot(testPredict)
+plt.show()
+
+print("Green indicates the Predicted Data")
+print("Blue indicates the Complete Data")
+print("Orange indicates the Train Data")
 
 
 loaded_modelf = load_model('lstmf.h5')
@@ -147,5 +147,7 @@ Y_ = scaler.inverse_transform(Y_)
 df_future = pd.DataFrame(columns=['Date','Forecast'])
 df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
 df_future['Forecast'] = Y_.flatten()
-st.subheader("Forecast for next 1 month from" , start_date)
+st.subheader("Forecast for next 1 month :")
+forecast = Image.open("forecast.jpg")
+st.image(forecast)
 st.write(df_future)
