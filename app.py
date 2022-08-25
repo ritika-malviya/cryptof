@@ -1,12 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import yfinance as yf
 import datetime
 from datetime import date, timedelta
 import plotly.graph_objects as go
-import plotly.express as px
+import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import load_model
 loaded_model = load_model('lstm.h5')
@@ -100,7 +99,7 @@ test_predict = scaler.inverse_transform(test_predict)
 # Final Graph
 # Plotting
 look_back = 100
-# shift train prediction for plotting
+# shift train prediction for plotting 
 trainPredict = np.empty_like(data1)
 trainPredict[:,:] = np.nan
 trainPredict[look_back:len(train_predict)+look_back, :] = train_predict
@@ -111,13 +110,15 @@ testPredict[:,:] = np.nan
 testPredict[len(train_predict) + (look_back * 2)+1:len(data1)-1, :] = test_predict
 
 # plot baseline and predictions
+fig2 = plt.figure(figsize = (12,6))
 plt.plot(scaler.inverse_transform(data1))
 plt.plot(trainPredict)
 plt.plot(testPredict)
-plt.show()
+plt.title("Comparision between original close price vs predicted close price', ")
+st.pyplot(fig2)
 
-print("Green indicates the Predicted Data")
 print("Blue indicates the Complete Data")
+print("Green indicates the Predicted Data")
 print("Orange indicates the Train Data")
 
 
