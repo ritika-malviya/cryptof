@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import yfinance as yf
 import datetime
 from datetime import date, timedelta
 import plotly.graph_objects as go
+import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import load_model
 loaded_model = load_model('lstm.h5')
+
+from PIL import Image
+image = Image.open('crypto.jpg')
 
 today = date.today()
 d1 = today.strftime("%Y-%m-%d")
@@ -16,7 +19,8 @@ end_date = d1
 d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
-st.title("Crpytocurrencies Prediction")
+st.title("Cryptocurrencies Prediction")
+st.image(image)
 st.subheader("What is Cryptocurrency???")
 st.write("""
 You must have heard or invested in any cryptocurrency once in your life. 
@@ -24,9 +28,12 @@ It is a digital medium of exchange that is encrypted and decentralized.
 Many people use cryptocurrencies as a form of investing because it gives great returns even in a short period. 
 Bitcoin, Ethereum, Dogecoin & many more coins are among the popular cryptocurrencies today.
 """)
-selected_stock= st.sidebar.selectbox("Select the crpytocurrency for prediction",
-                                     ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
-                                      "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
+coins = Image.open("coins.jpg")
+st.image(coins)
+a = st.write("### Select the crpytocurrency for prediction")
+selected_stock= st.selectbox(" Select " ,
+                            ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
+                             "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
 st.write("### Selected cryptocurrency : ", selected_stock )
 
 def data_load(ticker):
@@ -43,7 +50,7 @@ st.subheader("Raw Data")
 st.write(data.tail())
 
 #Describing data
-st.subheader("Data is from 2017 to 2022")
+st.subheader("Data Description of 5 years :")
 st.write(data.describe())
 
 #visualization
@@ -90,10 +97,11 @@ test_predict = loaded_model.predict(x_test)
 train_predict = scaler.inverse_transform(train_predict)
 test_predict = scaler.inverse_transform(test_predict)
 
+st.write("### Comparision between original close price vs predicted close price'")
 # Final Graph
 # Plotting
 look_back = 100
-# shift train prediction for plotting
+# shift train prediction for plotting 
 trainPredict = np.empty_like(data1)
 trainPredict[:,:] = np.nan
 trainPredict[look_back:len(train_predict)+look_back, :] = train_predict
@@ -108,12 +116,13 @@ fig2 = plt.figure(figsize = (12,6))
 plt.plot(scaler.inverse_transform(data1))
 plt.plot(trainPredict)
 plt.plot(testPredict)
-plt.legend()
+plt.title("Comparision between original close price vs predicted close price ")
 st.pyplot(fig2)
 
-st.write("Green indicates the Predicted Data")
-st.write("Blue indicates the Complete Data")
-st.write("Orange indicates the Train Data")
+print("Blue indicates the Complete Data")
+print("Green indicates the Predicted Data")
+print("Orange indicates the Train Data")
+
 
 loaded_modelf = load_model('lstmf.h5')
 #forecast for next 1 month
@@ -139,8 +148,9 @@ Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
 Y_ = scaler.inverse_transform(Y_)
 
 df_future = pd.DataFrame(columns=['Date','Forecast'])
-df_future['Date'] = pd.date_range(start=start_date, periods=n_forecast)
+df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
 df_future['Forecast'] = Y_.flatten()
-st.sidebar.subheader("Forecast for next 1 month from" , start_date)
-st.sidebar.write(df_future)
-
+st.subheader("Forecast for next 1 month :")
+forecast = Image.open("forecast.jpg")
+st.image(forecast)
+st.write(df_future)
