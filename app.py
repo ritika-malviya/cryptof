@@ -20,11 +20,12 @@ d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
 
+st.title("Cryptocurrencies Prediction")
+st.image(image)
+
 tab1,tab2,tab3 = st.sidebar.tabs(["About","Statistics","Forecast"])
 
 with tab1:
-st.title("Cryptocurrencies Prediction")
-st.image(image)
 st.subheader("What is Cryptocurrency???")
 st.write("""
 You must have heard or invested in any cryptocurrency once in your life. 
