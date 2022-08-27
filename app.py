@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import load_model
 loaded_model = load_model('lstm.h5')
-loaded_modelf = load_model('lstmf.h5')
 
 from PIL import Image
 image = Image.open('crypto.jpg')
@@ -24,34 +23,29 @@ start_date = d2
 st.title("Cryptocurrencies Prediction")
 st.image(image)
 
-tab1,tab2,tab3 = st.tabs(["About","Statistics","Forecast"])
-
-with tab1:
-       st.subheader("What is Cryptocurrency???")
-       st.write("""
+st.subheader("What is Cryptocurrency???")
+st.write("""
 You must have heard or invested in any cryptocurrency once in your life. 
 It is a digital medium of exchange that is encrypted and decentralized. 
 Many people use cryptocurrencies as a form of investing because it gives great returns even in a short period. 
 Bitcoin, Ethereum, Dogecoin & many more coins are among the popular cryptocurrencies today.
 """)
-       coins = Image.open("coins.jpg")
-       st.image(coins)
+coins = Image.open("coins.jpg")
+st.image(coins)
 
-with tab2:
-      st.write("### Select the crpytocurrency for prediction")
-      selected_stock= st.selectbox(" Select " ,
+st.write("### Select the crpytocurrency for prediction")
+selected_stock= st.selectbox(" Select " ,
                             ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
                              "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
-      st.write("### Selected cryptocurrency : ", selected_stock )
-
-      def data_load(ticker):
+st.write("### Selected cryptocurrency : ", selected_stock )
+def data_load(ticker):
          data = yf.download(ticker, start=start_date, end=end_date, progress=False)
          data.reset_index(inplace=True)
          return data
 
-      data_load_state = st.text("loading data.....")
-      data = data_load(selected_stock)
-      data_load_state.text("loading data... done")
+data_load_state = st.text("loading data.....")
+data = data_load(selected_stock)
+data_load_state.text("loading data... done")
 
        #data
       st.subheader("Raw Data")
@@ -73,7 +67,6 @@ with tab2:
 
       plot_data()
 
-with tab3:
        df = data['Close'] # forecast close
        from sklearn.preprocessing import MinMaxScaler
        import numpy as np
@@ -147,6 +140,7 @@ with tab3:
               X = np.array(X)
               Y = np.array(Y)
 
+              loaded_modelf = load_model('lstmf.h5')
 # generate the forecasts
               X_ = data1[- n_lookback:]  # last available input sequence
               X_ = X_.reshape(1, n_lookback, 1)
