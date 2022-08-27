@@ -154,13 +154,13 @@ with tab3:
               Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
               Y_ = scaler.inverse_transform(Y_)
 
-          df_future = pd.DataFrame(columns=['Date','Forecast'])
-          df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
-          df_future['Forecast'] = Y_.flatten()
-          st.subheader("Forecast for next 1 month :")
-          forecast = Image.open("forecast.jpg")
-          st.image(forecast)
-          st.write(df_future)
+              df_future = pd.DataFrame(columns=['Date','Forecast'])
+              df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
+              df_future['Forecast'] = Y_.flatten()
+              st.subheader("Forecast for next 1 month :")
+              forecast = Image.open("forecast.jpg")
+              st.image(forecast)
+              st.write(df_future)
 
        
           st.caption("Created by Ritika Malviya")
