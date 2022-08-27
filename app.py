@@ -148,11 +148,11 @@ with tab3:
               Y = np.array(Y)
 
 # generate the forecasts
-          X_ = data1[- n_lookback:]  # last available input sequence
-          X_ = X_.reshape(1, n_lookback, 1)
+              X_ = data1[- n_lookback:]  # last available input sequence
+              X_ = X_.reshape(1, n_lookback, 1)
 
-          Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
-          Y_ = scaler.inverse_transform(Y_)
+              Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
+              Y_ = scaler.inverse_transform(Y_)
 
           df_future = pd.DataFrame(columns=['Date','Forecast'])
           df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
