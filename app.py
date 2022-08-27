@@ -26,15 +26,15 @@ st.image(image)
 tab1,tab2,tab3 = st.sidebar.tabs(["About","Statistics","Forecast"])
 
 with tab1:
-st.subheader("What is Cryptocurrency???")
-st.write("""
+       st.subheader("What is Cryptocurrency???")
+       st.write("""
 You must have heard or invested in any cryptocurrency once in your life. 
 It is a digital medium of exchange that is encrypted and decentralized. 
 Many people use cryptocurrencies as a form of investing because it gives great returns even in a short period. 
 Bitcoin, Ethereum, Dogecoin & many more coins are among the popular cryptocurrencies today.
 """)
-coins = Image.open("coins.jpg")
-st.image(coins)
+       coins = Image.open("coins.jpg")
+       st.image(coins)
 
 with tab2:
 st.write("### Select the crpytocurrency for prediction")
