@@ -67,8 +67,8 @@ with tab2:
                                             high=data["High"],
                                             low=data["Low"],
                                             close=data["Close"])])
-                     figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
-                     st.plotly_chart(figure)
+                           figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
+                           st.plotly_chart(figure)
 
       plot_data()
 
