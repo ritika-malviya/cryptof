@@ -19,10 +19,8 @@ end_date = d1
 d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
-
 st.title("Cryptocurrencies Prediction")
 st.image(image)
-
 st.subheader("What is Cryptocurrency???")
 st.write("""
 You must have heard or invested in any cryptocurrency once in your life. 
@@ -32,38 +30,38 @@ Bitcoin, Ethereum, Dogecoin & many more coins are among the popular cryptocurren
 """)
 coins = Image.open("coins.jpg")
 st.image(coins)
-
 st.write("### Select the crpytocurrency for prediction")
 selected_stock= st.selectbox(" Select " ,
                             ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
                              "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
 st.write("### Selected cryptocurrency : ", selected_stock )
+
 def data_load(ticker):
-         data = yf.download(ticker, start=start_date, end=end_date, progress=False)
-         data.reset_index(inplace=True)
-         return data
+    data = yf.download(ticker, start=start_date, end=end_date, progress=False)
+    data.reset_index(inplace=True)
+    return data
 
 data_load_state = st.text("loading data.....")
 data = data_load(selected_stock)
 data_load_state.text("loading data... done")
 
-       #data
+#data
 st.subheader("Raw Data")
 st.write(data.tail())
 
-       #Describing data
+#Describing data
 st.subheader("Data Description of 5 years :")
 st.write(data.describe())
 
-      #visualization
+#visualization
 def plot_data():
-      figure = go.Figure(data=[go.Candlestick(x=data["Date"],
+    figure = go.Figure(data=[go.Candlestick(x=data["Date"],
                                             open=data["Open"],
                                             high=data["High"],
                                             low=data["Low"],
-                                            close=data["Close"])]
-        figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
-      st.plotly_chart(figure)
+                                            close=data["Close"])])
+    figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
+    st.plotly_chart(figure)
 
 plot_data()
 
@@ -157,6 +155,4 @@ forecast = Image.open("forecast.jpg")
 st.image(forecast)
 st.write(df_future)
 
-st.caption("Created by Ritika Malviya")
-
-
+   st.caption("Created by Ritika Malviya")
