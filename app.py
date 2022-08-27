@@ -54,13 +54,14 @@ st.subheader("Data Description of past 5 years :")
 st.write(data.describe())
 
 #visualization
+st.write("Interactive Price Chart")
 def plot_data():
     figure = go.Figure(data=[go.Candlestick(x=data["Date"],
                                             open=data["Open"],
                                             high=data["High"],
                                             low=data["Low"],
                                             close=data["Close"])])
-    figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
+    figure.update_layout(xaxis_rangeslider_visible=True)
     st.plotly_chart(figure)
 
 plot_data()
