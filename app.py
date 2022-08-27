@@ -54,7 +54,7 @@ st.subheader("Data Description of past 5 years :")
 st.write(data.describe())
 
 #visualization
-st.write("Interactive Price Chart")
+st.subheader("Interactive Price Chart")
 def plot_data():
     figure = go.Figure(data=[go.Candlestick(x=data["Date"],
                                             open=data["Open"],
