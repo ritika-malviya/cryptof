@@ -61,16 +61,16 @@ with tab2:
       st.write(data.describe())
 
       #visualization
-      def plot_data():
-                  figure = go.Figure(data=[go.Candlestick(x=data["Date"],
+        def plot_data():
+                figure = go.Figure(data=[go.Candlestick(x=data["Date"],
                                             open=data["Open"],
                                             high=data["High"],
                                             low=data["Low"],
                                             close=data["Close"])])
-                           figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
-                           st.plotly_chart(figure)
+                figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
+                st.plotly_chart(figure)
 
-      plot_data()
+        plot_data()
 
 with tab3:
        df = data['Close'] # forecast close
