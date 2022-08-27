@@ -141,11 +141,11 @@ with tab3:
        Y = []
 
        for i in range(n_lookback, len(data1) - n_forecast + 1):
-          X.append(data1[i - n_lookback: i])
-          Y.append(data1[i: i + n_forecast])
+              X.append(data1[i - n_lookback: i])
+              Y.append(data1[i: i + n_forecast])
 
-          X = np.array(X)
-          Y = np.array(Y)
+              X = np.array(X)
+              Y = np.array(Y)
 
 # generate the forecasts
           X_ = data1[- n_lookback:]  # last available input sequence
