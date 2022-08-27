@@ -19,6 +19,10 @@ end_date = d1
 d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
+
+tab1,tab2,tab3 = st.sidebar.tabs(["About","Statistics","Forecast"])
+
+with tab1:
 st.title("Cryptocurrencies Prediction")
 st.image(image)
 st.subheader("What is Cryptocurrency???")
@@ -30,7 +34,9 @@ Bitcoin, Ethereum, Dogecoin & many more coins are among the popular cryptocurren
 """)
 coins = Image.open("coins.jpg")
 st.image(coins)
-a = st.write("### Select the crpytocurrency for prediction")
+
+with tab2:
+st.write("### Select the crpytocurrency for prediction")
 selected_stock= st.selectbox(" Select " ,
                             ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
                              "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
@@ -65,6 +71,7 @@ def plot_data():
 
 plot_data()
 
+with tab3:
 df = data['Close'] # forecast close
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
