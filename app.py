@@ -24,7 +24,7 @@ start_date = d2
 st.title("Cryptocurrencies Prediction")
 st.image(image)
 
-tab1,tab2,tab3 = st.sidebar.tabs(["About","Statistics","Forecast"])
+tab1,tab2,tab3 = st.tabs(["About","Statistics","Forecast"])
 
 with tab1:
        st.subheader("What is Cryptocurrency???")
