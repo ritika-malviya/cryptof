@@ -154,3 +154,5 @@ st.subheader("Forecast for next 1 month :")
 forecast = Image.open("forecast.jpg")
 st.image(forecast)
 st.write(df_future)
+
+st.caption("Created by Ritika Malviya")
