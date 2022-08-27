@@ -141,27 +141,27 @@ print("Orange indicates the Train Data")
        X = []
        Y = []
 
-      for i in range(n_lookback, len(data1) - n_forecast + 1):
-        X.append(data1[i - n_lookback: i])
-        Y.append(data1[i: i + n_forecast])
+       for i in range(n_lookback, len(data1) - n_forecast + 1):
+          X.append(data1[i - n_lookback: i])
+          Y.append(data1[i: i + n_forecast])
 
-        X = np.array(X)
-        Y = np.array(Y)
+          X = np.array(X)
+          Y = np.array(Y)
 
 # generate the forecasts
-      X_ = data1[- n_lookback:]  # last available input sequence
-      X_ = X_.reshape(1, n_lookback, 1)
+          X_ = data1[- n_lookback:]  # last available input sequence
+          X_ = X_.reshape(1, n_lookback, 1)
 
-      Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
-      Y_ = scaler.inverse_transform(Y_)
+          Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
+          Y_ = scaler.inverse_transform(Y_)
 
-      df_future = pd.DataFrame(columns=['Date','Forecast'])
-      df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
-      df_future['Forecast'] = Y_.flatten()
-      st.subheader("Forecast for next 1 month :")
-      forecast = Image.open("forecast.jpg")
-      st.image(forecast)
-      st.write(df_future)
+          df_future = pd.DataFrame(columns=['Date','Forecast'])
+          df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
+          df_future['Forecast'] = Y_.flatten()
+          st.subheader("Forecast for next 1 month :")
+          forecast = Image.open("forecast.jpg")
+          st.image(forecast)
+          st.write(df_future)
 
        
       st.caption("Created by Ritika Malviya")
