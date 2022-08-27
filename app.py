@@ -52,7 +52,6 @@ st.write(data.tail(10))
 #Describing data
 st.subheader("Data Description of past 5 years :")
 st.write(data.describe())
-st.write(data.summary())
 
 #visualization
 def plot_data():
