@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 from tensorflow.keras.models import load_model
 loaded_model = load_model('lstm.h5')
+loaded_modelf = load_model('lstmf.h5')
 
 from PIL import Image
 image = Image.open('crypto.jpg')
@@ -132,7 +133,6 @@ print("Green indicates the Predicted Data")
 print("Orange indicates the Train Data")
 
 
-       loaded_modelf = load_model('lstmf.h5')
 #forecast for next 1 month
 #Generate the input and output sequences
        n_lookback = 100  # length of input sequences (lookback period)
