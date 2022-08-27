@@ -61,7 +61,7 @@ with tab2:
       st.write(data.describe())
 
       #visualization
-        def plot_data():
+      def plot_data():
                 figure = go.Figure(data=[go.Candlestick(x=data["Date"],
                                             open=data["Open"],
                                             high=data["High"],
@@ -70,7 +70,7 @@ with tab2:
                 figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
                 st.plotly_chart(figure)
 
-        plot_data()
+      plot_data()
 
 with tab3:
        df = data['Close'] # forecast close
@@ -84,84 +84,84 @@ with tab3:
        test_size = len(data1) - train_size
        train_data, test_data = data1[0:train_size,:],data1[train_size:len(data1),:1]
 
-     def create_data(dataset,time_step = 1):
+       def create_data(dataset,time_step = 1):
           dataX, dataY = [],[]
-    for i in range(len(dataset) - time_step - 1):
+       for i in range(len(dataset) - time_step - 1):
         a = dataset[i:(i + time_step), 0]
         dataX.append(a)
         dataY.append(dataset[i + time_step, 0])
-    return np.array(dataX), np.array(dataY)
+       return np.array(dataX), np.array(dataY)
 
      # past 100 days
-    time_step = 100
-    x_train, y_train = create_data(train_data,time_step)
-    x_test,y_test = create_data(test_data,time_step)
-    x_train = x_train.reshape(x_train.shape[0],x_train.shape[1],1)
-    x_test = x_test.reshape(x_test.shape[0],x_test.shape[1],1)
+       time_step = 100
+       x_train, y_train = create_data(train_data,time_step)
+       x_test,y_test = create_data(test_data,time_step)
+       x_train = x_train.reshape(x_train.shape[0],x_train.shape[1],1)
+       x_test = x_test.reshape(x_test.shape[0],x_test.shape[1],1)
 
-    train_predict = loaded_model.predict(x_train)
-    test_predict = loaded_model.predict(x_test)
+       train_predict = loaded_model.predict(x_train)
+       test_predict = loaded_model.predict(x_test)
 ##Transform back to original form
-    train_predict = scaler.inverse_transform(train_predict)
-    test_predict = scaler.inverse_transform(test_predict)
+       train_predict = scaler.inverse_transform(train_predict)
+       test_predict = scaler.inverse_transform(test_predict)
 
-     st.write("### Comparision between original close price vs predicted close price'")
+       st.write("### Comparision between original close price vs predicted close price'")
 # Final Graph
 # Plotting
-     look_back = 100
+       look_back = 100
 # shift train prediction for plotting 
-     trainPredict = np.empty_like(data1)
-     trainPredict[:,:] = np.nan
-     trainPredict[look_back:len(train_predict)+look_back, :] = train_predict
+       trainPredict = np.empty_like(data1)
+       trainPredict[:,:] = np.nan
+       trainPredict[look_back:len(train_predict)+look_back, :] = train_predict
 
 # shift test prediction
-     testPredict = np.empty_like(data1)
-     testPredict[:,:] = np.nan
-     testPredict[len(train_predict) + (look_back * 2)+1:len(data1)-1, :] = test_predict
+       testPredict = np.empty_like(data1)
+       testPredict[:,:] = np.nan
+       testPredict[len(train_predict) + (look_back * 2)+1:len(data1)-1, :] = test_predict
 
 # plot baseline and predictions
-      fig2 = plt.figure(figsize = (12,6))
-      plt.plot(scaler.inverse_transform(data1))
-      plt.plot(trainPredict)
-      plt.plot(testPredict)
-      plt.title("Comparision between original close price vs predicted close price ")
-      st.pyplot(fig2)
+       fig2 = plt.figure(figsize = (12,6))
+       plt.plot(scaler.inverse_transform(data1))
+       plt.plot(trainPredict)
+       plt.plot(testPredict)
+       plt.title("Comparision between original close price vs predicted close price ")
+       st.pyplot(fig2)
 
 print("Blue indicates the Complete Data")
 print("Green indicates the Predicted Data")
 print("Orange indicates the Train Data")
 
 
-      loaded_modelf = load_model('lstmf.h5')
+       loaded_modelf = load_model('lstmf.h5')
 #forecast for next 1 month
 #Generate the input and output sequences
-      n_lookback = 100  # length of input sequences (lookback period)
-      n_forecast = 30  # length of output sequences (forecast period)
+       n_lookback = 100  # length of input sequences (lookback period)
+       n_forecast = 30  # length of output sequences (forecast period)
 
-      X = []
-      Y = []
+       X = []
+       Y = []
 
       for i in range(n_lookback, len(data1) - n_forecast + 1):
-    X.append(data1[i - n_lookback: i])
-    Y.append(data1[i: i + n_forecast])
+        X.append(data1[i - n_lookback: i])
+        Y.append(data1[i: i + n_forecast])
 
-     X = np.array(X)
-     Y = np.array(Y)
+        X = np.array(X)
+        Y = np.array(Y)
 
 # generate the forecasts
       X_ = data1[- n_lookback:]  # last available input sequence
       X_ = X_.reshape(1, n_lookback, 1)
 
-     Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
-     Y_ = scaler.inverse_transform(Y_)
+      Y_ = loaded_modelf.predict(X_).reshape(-1, 1)
+      Y_ = scaler.inverse_transform(Y_)
 
-       df_future = pd.DataFrame(columns=['Date','Forecast'])
-       df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
-       df_future['Forecast'] = Y_.flatten()
-       st.subheader("Forecast for next 1 month :")
-       forecast = Image.open("forecast.jpg")
-       st.image(forecast)
-       st.write(df_future)
+      df_future = pd.DataFrame(columns=['Date','Forecast'])
+      df_future['Date'] = pd.date_range(start=end_date, periods=n_forecast)
+      df_future['Forecast'] = Y_.flatten()
+      st.subheader("Forecast for next 1 month :")
+      forecast = Image.open("forecast.jpg")
+      st.image(forecast)
+      st.write(df_future)
 
        
-    st.caption("Created by Ritika Malviya")
+      st.caption("Created by Ritika Malviya")
