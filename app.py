@@ -128,10 +128,9 @@ with tab3:
        plt.title("Comparision between original close price vs predicted close price ")
        st.pyplot(fig2)
 
-print("Blue indicates the Complete Data")
-print("Green indicates the Predicted Data")
-print("Orange indicates the Train Data")
-
+       print("Blue indicates the Complete Data")
+       print("Green indicates the Predicted Data")
+       print("Orange indicates the Train Data")
 
 #forecast for next 1 month
 #Generate the input and output sequences
@@ -165,3 +164,4 @@ print("Orange indicates the Train Data")
 
        
       st.caption("Created by Ritika Malviya")
+
