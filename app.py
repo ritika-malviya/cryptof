@@ -48,24 +48,24 @@ data_load_state.text("loading data... done")
 #data
 st.subheader("Historical Data")
 time_period = st.selectbox("TIME PERIOD",("5 DAYS","1 MONTH","3 MONTHS","6 MONTHS","1 YEAR"))  
-    if time_period == "5 DAYS" :
-         st.write("Historical Data of past 5 Days")
-         st.write(data.tail(5))
-     elif time_period == "1 MONTH" :
-         st.write("Historical Data of past 1 Month")
-         st.write(data.tail(30))  
-     elif time_period == "3 MONTHS" :
-         st.write("Historical Data of past 3 Months")
-         st.write(data.tail(90))
-      elif time_period == "6 MONTHS" : 
-         st.write("Historical Data of past 6 Months")
-         st.write(data.tail(180))
-      elif time_period == "1 YEAR" :
-          st.write("Historical Data of past 1 year")
-          st.write(data.tail(365))   
-      else
-         st.write("Historical Data of past 10 Days")
-         st.write(data.tail(10))
+if time_period == "5 DAYS" :
+    st.write("Historical Data of past 5 Days")
+    st.write(data.tail(5))
+elif time_period == "1 MONTH" :
+     st.write("Historical Data of past 1 Month")
+     st.write(data.tail(30))  
+elif time_period == "3 MONTHS" :
+      st.write("Historical Data of past 3 Months")
+      st.write(data.tail(90))
+elif time_period == "6 MONTHS" : 
+      st.write("Historical Data of past 6 Months")
+      st.write(data.tail(180))
+elif time_period == "1 YEAR" :
+       st.write("Historical Data of past 1 year")
+       st.write(data.tail(365))   
+else :
+       st.write("Historical Data of past 10 Days")
+       st.write(data.tail(10))
 
 #Describing data
 st.subheader("Data Description of past 5 years :")
