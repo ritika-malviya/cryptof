@@ -47,28 +47,28 @@ data_load_state.text("loading data... done")
 
 #data
 st.subheader("Historical Data")
-      time_period = st.selectbox("TIME PERIOD",("5 DAYS","1 MONTH","3 MONTHS","6 MONTHS","1 YEAR"))  
-      if time_period == "5 DAYS" :
+time_period = st.selectbox("TIME PERIOD",("5 DAYS","1 MONTH","3 MONTHS","6 MONTHS","1 YEAR"))  
+    if time_period == "5 DAYS" :
          st.write("Historical Data of past 5 Days")
          st.write(data.tail(5))
-      elif time_period == "1 MONTH" :
+     elif time_period == "1 MONTH" :
          st.write("Historical Data of past 1 Month")
          st.write(data.tail(30))  
-      elif time_period == "3 MONTHS" :
+     elif time_period == "3 MONTHS" :
          st.write("Historical Data of past 3 Months")
          st.write(data.tail(90))
       elif time_period == "6 MONTHS" : 
          st.write("Historical Data of past 6 Months")
          st.write(data.tail(180))
-         st.write("Historical Data of past 1 year")
       elif time_period == "1 YEAR" :
-         st.write(data.tail(365))   
+          st.write("Historical Data of past 1 year")
+          st.write(data.tail(365))   
       else
          st.write("Historical Data of past 10 Days")
          st.write(data.tail(10))
 
 #Describing data
-st.subheader("Data Description of 5 years :")
+st.subheader("Data Description of past 5 years :")
 st.write(data.describe())
 
 #visualization
@@ -90,7 +90,7 @@ scaler = MinMaxScaler(feature_range = (0,1))
 data1 = scaler.fit_transform(np.array(df).reshape(-1,1))
 
 # train test split
-train_size = int(len(data1)*0.75)
+train_size = int(len(data1)*0.80)
 test_size = len(data1) - train_size
 train_data, test_data = data1[0:train_size,:],data1[train_size:len(data1),:1]
 
@@ -173,4 +173,4 @@ forecast = Image.open("forecast.jpg")
 st.image(forecast)
 st.write(df_future)
 
-  st.caption("Created by Ritika Malviya")
+st.caption("Created by Ritika Malviya")
