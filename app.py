@@ -46,8 +46,7 @@ data = data_load(selected_stock)
 data_load_state.text("loading data... done")
 
 #data
- st.subheader("Historical Data")
-
+st.subheader("Historical Data")
       time_period = st.selectbox("TIME PERIOD",("5 DAYS","1 MONTH","3 MONTHS","6 MONTHS","1 YEAR"))  
       if time_period == "5 DAYS" :
          st.write("Historical Data of past 5 Days")
