@@ -47,10 +47,13 @@ data_load_state.text("loading data... done")
 
 #data
 st.subheader("Historical Data")
-time_period = st.selectbox("TIME PERIOD",("5 DAYS","1 MONTH","3 MONTHS","6 MONTHS","1 YEAR"))  
+time_period = st.selectbox("TIME PERIOD",("5 DAYS","15 DAYS","1 MONTH","3 MONTHS","6 MONTHS","1 YEAR"))  
 if time_period == "5 DAYS" :
     st.write("Historical Data of past 5 Days")
     st.write(data.tail(5))
+elif time_period == "15 DAYS" :
+     st.write("Historical Data of past 15 Days")
+     st.write(data.tail(15))  
 elif time_period == "1 MONTH" :
      st.write("Historical Data of past 1 Month")
      st.write(data.tail(30))  
