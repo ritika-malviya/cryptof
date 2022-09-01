@@ -19,7 +19,7 @@ end_date = d1
 d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
-st.title("Cryptocurrencies Prediction")
+st.title("Cryptocurrencies Prediction using LSTM")
 st.image(image)
 st.subheader("What is Cryptocurrency???")
 st.write("""
