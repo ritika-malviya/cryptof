@@ -19,7 +19,7 @@ end_date = d1
 d2 = date.today() - timedelta(days=1825)  # 5 years data
 d2 = d2.strftime("%Y-%m-%d")
 start_date = d2
-st.title("Cryptocurrencies Prediction Using LSTM")
+st.title("Cryptocurrencies Prediction")
 st.image(image)
 st.subheader("What is Cryptocurrency???")
 st.write("""
@@ -30,9 +30,9 @@ Bitcoin, Ethereum, Dogecoin & many more coins are among the popular cryptocurren
 """)
 coins = Image.open("coins.jpg")
 st.image(coins)
-st.write("### Select the crpytocurrency for prediction")
+a = st.write("### Select the crpytocurrency for prediction")
 selected_stock= st.selectbox(" Select " ,
-                            ("XRP-USD","BTC-USD","ETH-USD","DOGE-USD","ADA-USD",
+                            ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
                              "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
 st.write("### Selected cryptocurrency : ", selected_stock )
 
@@ -46,40 +46,21 @@ data = data_load(selected_stock)
 data_load_state.text("loading data... done")
 
 #data
-st.subheader("Historical Data")
-time_period = st.selectbox("TIME PERIOD",("5 DAYS","15 DAYS","1 MONTH","3 MONTHS","6 MONTHS","1 YEAR"))  
-if time_period == "5 DAYS": 
-         st.write("Historical Data of past 5 Days")
-         st.write(data.tail(5))
-elif time_period == "15 DAYS": 
-         st.write("Historical Data of past 5 Days")
-         st.write(data.tail(15))
-elif time_period == "1 MONTH": 
-         st.write("Historical Data of past 1 Month")
-         st.write(data.tail(30))  
-elif time_period == "3 MONTHS": 
-         st.write("Historical Data of past 3 Months")
-         st.write(data.tail(90))
-elif time_period == "6 MONTHS": 
-         st.write("Historical Data of past 6 Months")
-         st.write(data.tail(180))
-else:
-         st.write("Historical Data of past 1 year")
-         st.write(data.tail(365))   
+st.subheader("Raw Data")
+st.write(data.tail())
 
 #Describing data
-st.subheader("Data Description of past 5 years :")
+st.subheader("Data Description of 5 years :")
 st.write(data.describe())
 
 #visualization
-st.subheader("Interactive Price Chart")
 def plot_data():
     figure = go.Figure(data=[go.Candlestick(x=data["Date"],
                                             open=data["Open"],
                                             high=data["High"],
                                             low=data["Low"],
                                             close=data["Close"])])
-    figure.update_layout(xaxis_rangeslider_visible=True)
+    figure.update_layout(title_text = "Interactive Price Chart",xaxis_rangeslider_visible=True)
     st.plotly_chart(figure)
 
 plot_data()
@@ -173,5 +154,3 @@ st.subheader("Forecast for next 1 month :")
 forecast = Image.open("forecast.jpg")
 st.image(forecast)
 st.write(df_future)
-
-st.caption("Created by Ritika Malviya")
