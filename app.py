@@ -32,7 +32,7 @@ coins = Image.open("coins.jpg")
 st.image(coins)
 a = st.write("### Select the crpytocurrency for prediction")
 selected_stock= st.selectbox(" Select " ,
-                            ("BTC-USD","ETH-USD","XRP-USD","DOGE-USD","ADA-USD",
+                            ("XRP-USD","BTC-USD","ETH-USD","DOGE-USD","ADA-USD",
                              "BNB-USD","DOT-USD","SHIB-USD","TRX-USD","MATIC-USD"))
 st.write("### Selected cryptocurrency : ", selected_stock )
 
