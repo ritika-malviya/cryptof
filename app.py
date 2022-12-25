@@ -6,7 +6,6 @@ import datetime
 from datetime import date, timedelta
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import load_model
 loaded_model = load_model('lstm.h5')
 
@@ -89,6 +88,7 @@ plot_data()
 
 df = data['Close'] # forecast close
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler(feature_range = (0,1))
 data1 = scaler.fit_transform(np.array(df).reshape(-1,1))
 
